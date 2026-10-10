@@ -1,0 +1,200 @@
+/* SOURCE (px based). build step converts px to em and prefixes .tN with .cv */
+@font-face{font-family:'CV Sans';src:url('../fonts/Carlito-Regular.woff') format('woff');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'CV Sans';src:url('../fonts/Carlito-Bold.woff') format('woff');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'CV Sans';src:url('../fonts/Carlito-Italic.woff') format('woff');font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:'CV Sans';src:url('../fonts/Carlito-BoldItalic.woff') format('woff');font-weight:700;font-style:italic;font-display:swap}
+@font-face{font-family:'CV Serif';src:url('../fonts/LiberationSerif-Regular.woff') format('woff');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'CV Serif';src:url('../fonts/LiberationSerif-Bold.woff') format('woff');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'CV Serif';src:url('../fonts/LiberationSerif-Italic.woff') format('woff');font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:'CV Serif';src:url('../fonts/LiberationSerif-BoldItalic.woff') format('woff');font-weight:700;font-style:italic;font-display:swap}
+
+.cv{width:var(--pw);background:#fff;color:#111;font-family:'CV Sans',Calibri,Carlito,Arial,sans-serif;font-size:calc(var(--b) * var(--k) * 1px);line-height:1.34;position:relative;overflow-wrap:anywhere;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.cv *{box-sizing:border-box;margin:0;padding:0}
+.cv ul{list-style:none}
+.cv a{color:inherit;text-decoration:none}
+.cv .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.cv .row>:first-child{flex:1;min-width:0}
+.cv .row>:last-child{white-space:nowrap;text-align:right;flex:none}
+.cv .row>:only-child{white-space:normal;text-align:left;flex:1}
+.cv .e,.cv .it,.cv .ref{break-inside:avoid}
+.cv h2,.cv h3{break-after:avoid}
+.cv .ph{overflow:hidden;flex:none}
+.cv .ph img{width:100%;height:100%;object-fit:cover;display:block}
+.cv .dsh{font-weight:400}
+.cv .note,.cv .role{margin-bottom:0}
+.cv .ref{margin-bottom:5px}
+.cv .refs{display:grid;grid-template-columns:1fr 1fr;gap:4px 24px}
+.cv .req{font-style:italic}
+.cv sup,.cv sub{font-size:.72em;line-height:0}
+.cv.fixed{height:var(--ph);overflow:hidden}
+.cv.measure.fixed{height:auto;min-height:var(--ph);overflow:visible}
+.cv.measure{position:static}
+.cv .txt{text-align:left}
+.cv table{width:100%;border-collapse:collapse;margin-bottom:4px}
+.cv .bar{margin:5px 0}
+.cv .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0 14px}
+.cv .grid li,.cv ul.b li{padding-left:12px;position:relative}
+.cv .grid li:before,.cv ul.b li:before{content:'\2022';position:absolute;left:2px}
+
+/* ---------- T1 header band two columns (colour) ---------- */
+.t1 .band{background:#1e293b;color:#fff;padding:26px 30px;display:flex;gap:20px;align-items:flex-start}
+.t1 .ph{width:104px;height:124px;border:3px solid #fff}
+.t1 .who{flex:1;min-width:0}
+.t1 h1{font-size:27px;line-height:1.1;font-weight:700}
+.t1 .ttl{color:#7cc4ff;margin:3px 0 8px;font-size:14px}
+.t1 .who p{font-size:11.5px;color:#e2e8f0}
+.t1 .ct{width:190px;flex:none;font-size:11.5px;line-height:1.55;color:#e2e8f0}
+.t1 .ct b{color:#7cc4ff}
+.t1 .cols{display:flex;gap:26px;padding:18px 30px}
+.t1 .c1{width:215px;flex:none}.t1 .c2{flex:1;min-width:0}
+.t1 h2{font-size:13.5px;text-transform:uppercase;letter-spacing:.5px;color:#1e293b;border-bottom:2px solid #2f80ed;padding-bottom:2px;margin:12px 0 7px}
+.t1 .s:first-child h2{margin-top:0}
+.t1 .it{margin-bottom:8px}
+.t1 .it b{display:block}.t1 .it i{color:#2f80ed;font-style:normal;display:block}
+.t1 .it small{color:#666;font-size:11px;display:block}
+.t1 ul.b li{font-size:11.5px}
+.t1 ul.b li:before{color:#2f80ed}
+.t1 .bar span{font-size:11.5px}.t1 .bar div{height:5px;background:#e2e8f0;margin-top:2px}.t1 .bar div i{display:block;height:5px;background:#2f80ed}
+.t1 .sk,.t1 .txt,.t1 .note{font-size:11.5px}
+.t1 .refs{grid-template-columns:1fr 1fr;font-size:11.5px}
+
+/* ---------- T2 plain single column ---------- */
+.t2{padding:0 42px}
+.t2 .hd{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:6px}
+.t2 h1{font-size:27px;letter-spacing:.5px;line-height:1.15}
+.t2 .sub{font-size:14px;margin-top:1px}
+.t2 .cl{font-size:11.5px;color:#333;margin-top:3px}
+.t2 .ph{width:86px;height:100px;border:1px solid #999}
+.t2 h2{font-size:13px;text-transform:uppercase;letter-spacing:.8px;border-bottom:1.5px solid #111;margin:13px 0 6px;padding-bottom:1px}
+.t2 .e{margin-bottom:7px}
+.t2 .role{font-style:italic}
+.t2 ul.b li:before{content:'';top:.55em;left:3px;width:4px;height:4px;background:#111}
+
+/* ---------- T3 dark sidebar (colour) ---------- */
+.t3{display:flex}
+.t3 .sb0{width:262px;flex:none;background:#1c2431;color:#fff;padding:36px 26px}
+.t3 .ph{width:170px;height:170px;border-radius:50%;margin:0 auto 26px}
+.t3 .sb0 h3{font-size:19px;margin:20px 0 5px}
+.t3 .sb0 h3:after{content:'';display:block;width:42px;height:3px;background:#fff;margin-top:5px}
+.t3 .sb0 .s:first-of-type h3{margin-top:20px}
+.t3 .sb0 p{font-size:12px;line-height:1.45;margin-bottom:5px}.t3 .sb0 p b{display:block}
+.t3 .sb0 li{font-size:12.5px;line-height:1.6}
+.t3 .sb0 .sk{font-size:12.5px}
+.t3 .mn{flex:1;min-width:0;padding:44px 34px}
+.t3 h1{font-size:36px;line-height:1.02;letter-spacing:-.5px}
+.t3 .ttl{font-size:19px;margin:8px 0 22px;color:#333}
+.t3 .mn h2{font-size:21px;margin:20px 0 4px}
+.t3 .mn h2:after{content:'';display:block;width:42px;height:3px;background:#111;margin-top:5px}
+.t3 .mn .sb{margin-top:8px}
+.t3 .txt{text-align:justify;font-size:12px}
+.t3 .e{margin:10px 0}
+.t3 .e>b{font-size:13px;display:block}
+.t3 ul.b li{font-size:12px}
+
+/* ---------- T4 LaTeX academic ---------- */
+.t4{font-family:'CV Serif','Times New Roman',serif;padding:0 46px;line-height:1.26}
+.t4 h1{text-align:center;font-size:26px;font-variant:small-caps;letter-spacing:1px}
+.t4 .c{text-align:center;font-size:11.5px;margin-top:3px}
+.t4 h2{font-size:13.5px;font-variant:small-caps;letter-spacing:.8px;border-bottom:1px solid #000;margin:11px 0 5px}
+.t4 .e{margin-bottom:5px}
+.t4 .row i{font-style:italic}
+
+/* ---------- T5 US dense one page ---------- */
+.t5{padding:0 44px;line-height:1.27}
+.t5 h1{text-align:center;font-size:25px;letter-spacing:.3px}
+.t5 .c{text-align:center;font-size:11.5px;margin:2px 0 6px}
+.t5 h2{font-size:12.5px;text-transform:uppercase;border-bottom:1px solid #000;margin:10px 0 4px;letter-spacing:.5px}
+.t5 .e{margin-bottom:5px}
+.t5 .sk{margin:1px 0}
+.t5 .role{font-style:italic}
+
+/* ---------- T6 summary + skills grid ---------- */
+.t6{font-family:'CV Serif','Times New Roman',serif;padding:0 46px;line-height:1.26}
+.t6 h1{text-align:center;font-size:27px;letter-spacing:1px}
+.t6 .c{text-align:center;font-size:11.5px;margin:3px 0 4px;padding-bottom:5px;border-bottom:3px double #000}
+.t6 h2{font-size:12.5px;text-transform:uppercase;margin:11px 0 4px;letter-spacing:.8px;border-bottom:.75px solid #000}
+.t6 .e{margin-bottom:5px}
+.t6 .cmp{margin-bottom:1px}
+
+/* ---------- T7 Bangladesh narrow left, bars (colour) ---------- */
+.t7 .top{display:flex;align-items:center;gap:30px;padding:26px 36px 8px}
+.t7 .ph{width:112px;height:112px;border-radius:50%;border:2px solid #222}
+.t7 .nm{flex:1;min-width:0;border-bottom:1.5px solid #222;padding-bottom:12px}
+.t7 h1{font-size:32px;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;line-height:1.1}
+.t7 .jt{display:flex;justify-content:space-between;margin-top:8px;text-transform:uppercase;font-size:13px;letter-spacing:1px}
+.t7 .jt.one{justify-content:flex-start}
+.t7 .ct{display:flex;justify-content:center;flex-wrap:wrap;gap:4px 26px;font-size:11.5px;padding:10px 36px 8px}
+.t7 .ct span:before{content:'\25C6  ';color:#d62828;font-size:9px}
+.t7 .cols{display:flex;gap:26px;padding:8px 36px}
+.t7 .c1{width:190px;flex:none}.t7 .c2{flex:1;min-width:0}
+.t7 h2{font-size:14px;font-weight:400;text-transform:uppercase;display:flex;align-items:center;gap:10px;margin:14px 0 8px;letter-spacing:.5px}
+.t7 h2:after{content:'';flex:1;border-top:1.5px solid #222}
+.t7 .s:first-child h2{margin-top:6px}
+.t7 .ed{margin-bottom:8px;font-size:12px}.t7 .ed b{display:block;text-transform:uppercase}
+.t7 ul.sl li{padding-left:0;text-transform:uppercase;margin-bottom:4px}
+.t7 ul.sl li:before{content:none}
+.t7 .bar{margin:7px 0;font-size:12px}.t7 .bar div{height:3px;background:#aaa;margin-top:5px;position:relative}
+.t7 .bar div i{display:block;height:3px;background:#d62828;position:relative}
+.t7 .bar div i:after{content:'';position:absolute;right:-4px;top:-3px;width:7px;height:7px;background:#d62828;transform:rotate(45deg)}
+.t7 .e{margin-bottom:10px}.t7 .e>b{text-transform:uppercase;font-size:12px;display:block}
+.t7 .e>small{display:block;font-size:11.5px;margin:1px 0 3px}
+.t7 .txt{text-align:justify}
+.t7 ul.cert li{margin:4px 0;padding-left:18px}
+
+/* ---------- T8 US graduate ATS classic ---------- */
+.t8{font-family:'CV Serif','Times New Roman',serif;padding:0 52px;line-height:1.28}
+.t8 h1{text-align:center;font-size:25px;letter-spacing:.5px}
+.t8 .c{text-align:center;font-size:12px;margin:3px 0 8px}
+.t8 h2{font-size:13px;text-transform:uppercase;border-bottom:1px solid #000;margin:12px 0 5px;letter-spacing:1px}
+.t8 .e{margin-bottom:6px}
+
+/* ---------- T9 US graduate modern compact (black bar) ---------- */
+.t9 .bar0{background:#111;color:#fff;padding:24px 40px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
+.t9 h1{font-size:30px;line-height:1.05}
+.t9 .ttl{font-size:13px;margin-top:5px;color:#ddd}
+.t9 .rt{text-align:right;font-size:11.5px;line-height:1.5;flex:none;max-width:48%}
+.t9 .in{padding:8px 40px}
+.t9 h2{font-size:12.5px;text-transform:uppercase;letter-spacing:1.2px;margin:12px 0 5px;display:flex;gap:8px;align-items:center}
+.t9 h2:after{content:'';flex:1;height:1px;background:#111}
+.t9 .e{margin-bottom:6px}.t9 .sub{font-weight:400}
+.t9 ul.b li:before{content:'\25AA';left:1px}
+.t9 .sg{display:grid;grid-template-columns:120px 1fr;gap:3px 8px}
+
+/* ---------- T10 Bangladesh job-focused ---------- */
+.t10{display:flex}
+.t10 .l{width:236px;flex:none;background:#efefef;padding:30px 22px}
+.t10 .ph{width:132px;height:154px;margin:0 auto 18px;border:3px solid #fff;box-shadow:0 0 0 1px #111}
+.t10 .l h3{font-size:13px;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid #111;padding-bottom:2px;margin:15px 0 7px}
+.t10 .l p{font-size:11.5px;margin-bottom:4px}.t10 .l p b{display:block;font-size:10.5px;color:#555;text-transform:uppercase}
+.t10 .bar{font-size:11.5px}.t10 .bar div{height:5px;background:#cfcfcf;margin-top:3px}.t10 .bar div i{display:block;height:5px;background:#111}
+.t10 .l li,.t10 .l .sk{font-size:11.5px}
+.t10 .r{flex:1;min-width:0;padding:34px 32px}
+.t10 h1{font-size:30px;line-height:1.1}
+.t10 .ttl{font-size:14px;margin:4px 0 4px;color:#333}
+.t10 .r h2{font-size:13px;text-transform:uppercase;letter-spacing:1px;background:#111;color:#fff;padding:2px 9px;margin:15px 0 7px}
+.t10 .e{margin-bottom:7px}
+.t10 table{font-size:11.5px}.t10 th{background:#efefef;text-align:left;padding:3px 5px;border:1px solid #bbb}.t10 td{padding:3px 5px;border:1px solid #bbb}
+.t10 ul.b li{font-size:11.5px}
+.t10 .role{font-style:italic}
+
+/* ---------- T11 academic CV for admissions ---------- */
+.t11{padding:0 44px;line-height:1.28}
+.t11 .hd{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;border-bottom:3px solid #111;padding-bottom:8px}
+.t11 h1{font-size:30px;line-height:1.05}
+.t11 .rt{text-align:right;font-size:11.5px;line-height:1.45;flex:none}
+.t11 .lk{font-size:11.5px;margin:6px 0 2px;display:flex;flex-wrap:wrap;gap:2px 18px;text-decoration:underline}
+.t11 .s{display:block;margin-top:11px;position:relative}
+.t11 .s>h2{position:absolute;left:0;top:0;width:112px;font-size:11.5px;text-transform:uppercase;letter-spacing:.8px;padding-top:2px;border-top:1px solid #777}
+.t11 .s>.sb{margin-left:128px;min-height:2.8em;border-top:1px solid #777;padding-top:3px}
+.t11 .e{margin-bottom:6px}
+.t11 ul.b li:before{content:'\2013';left:1px}
+
+/* ---------- T12 study abroad application ---------- */
+.t12{padding:0 46px;line-height:1.32}
+.t12 .hd{text-align:center}
+.t12 h1{font-size:29px;line-height:1.1}
+.t12 .tg{display:inline-block;margin:6px 0;border:1px solid #111;padding:2px 14px;border-radius:12px;font-size:12px}
+.t12 .c{font-size:11.5px;color:#333}
+.t12 .pf{margin:10px 0 0;text-align:center;font-style:italic;color:#333;border-top:1px solid #bbb;border-bottom:1px solid #bbb;padding:7px 18px}
+.t12 h2{font-size:13px;margin:13px 0 5px;padding-left:9px;border-left:4px solid #111;text-transform:uppercase;letter-spacing:.8px}
+.t12 .e{margin-bottom:6px}

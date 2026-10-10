@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Easy CV Builder</title>
+<meta name="description" content="Free CV builder. Pick a template, fill in your details, and download your CV as PDF or Word. Nothing you type is stored or uploaded.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231e293b'/%3E%3Crect x='16' y='12' width='32' height='40' rx='3' fill='%23fff'/%3E%3Crect x='21' y='19' width='14' height='3' fill='%231e293b'/%3E%3Crect x='21' y='27' width='22' height='2' fill='%2394a3b8'/%3E%3Crect x='21' y='33' width='22' height='2' fill='%2394a3b8'/%3E%3Crect x='21' y='39' width='16' height='2' fill='%2394a3b8'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/templates.css">
+</head>
+<body>
+<div class="bgfx" aria-hidden="true"></div>
+
+<header class="top">
+  <a class="brand" href="./" id="brand"><span class="logo" aria-hidden="true"></span><span>Easy CV Builder</span></a>
+  <div class="top-actions" id="topActions" hidden>
+    <button class="btn ghost" id="btnBack" type="button">&larr; Templates</button>
+  </div>
+</header>
+
+<main>
+  <!-- ============ HOME / GALLERY ============ -->
+  <section id="viewHome" class="view">
+    <div class="hero">
+      <h1>Easy CV Builder</h1>
+      <p>Choose a template, fill in your details, and download your CV as a PDF or Word file. Free, and nothing you type is stored.</p>
+      <div class="hero-actions">
+        <button class="btn primary" id="btnUpload" type="button">Upload my old CV</button>
+        <button class="btn" id="btnOpenDraft" type="button">Open a saved draft</button>
+      </div>
+      <p class="hint" id="homeBanner" hidden></p>
+    </div>
+    <div class="filters" id="filters" role="tablist" aria-label="Filter templates"></div>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <!-- ============ BUILDER ============ -->
+  <section id="viewBuilder" class="view" hidden>
+    <div class="bar" id="builderBar">
+      <div class="bar-left">
+        <button class="btn ghost" id="btnChange" type="button">&larr; Change template</button>
+        <strong id="tplName"></strong>
+        <button class="btn small more-btn" id="btnMore" type="button" aria-expanded="false">Options &#9662;</button>
+      </div>
+      <div class="bar-mid">
+        <label>Paper
+          <select id="selPaper"><option value="A4">A4</option><option value="Letter">US Letter</option></select>
+        </label>
+        <label>Pages
+          <select id="selPages"><option value="1">1 page</option><option value="2">Up to 2 pages</option></select>
+        </label>
+        <label class="chk"><input type="checkbox" id="chkFit" checked> Auto-fit</label>
+      </div>
+      <div class="bar-right">
+        <button class="btn" id="btnImport" type="button" title="Read an old CV and fill the form">Import CV</button>
+        <button class="btn" id="btnSaveDraft" type="button">Save draft</button>
+        <button class="btn" id="btnLoadDraft" type="button">Open draft</button>
+        <button class="btn primary" id="btnPDF" type="button">Download PDF</button>
+        <button class="btn primary" id="btnDOCX" type="button">Download Word</button>
+      </div>
+    </div>
+    <div class="remember">
+      <label class="chk"><input type="checkbox" id="chkRemember"> Remember my progress on this device</label>
+      <span class="hint">Off by default. If on, a draft is kept in this browser only. <button class="link" id="btnClear" type="button">Clear saved data</button></span>
+    </div>
+    <p class="banner" id="builderBanner" hidden></p>
+    <div class="tabs" id="mobTabs">
+      <button type="button" data-tab="edit" class="on">Edit</button>
+      <button type="button" data-tab="preview">Preview</button>
+    </div>
+    <div class="bgrid" data-tab="edit" id="bgrid">
+      <div class="formcol" id="formcol"></div>
+      <div class="previewcol" id="previewcol">
+        <div class="pv-status" id="pvStatus"></div>
+        <div class="pv-scroll" id="pvScroll"><div class="pv-box" id="pvBox"><div class="pv-scale" id="pvScale"></div></div></div>
+      </div>
+    </div>
+    <div class="mobbar" id="mobBar">
+      <button class="btn primary" id="btnPDF2" type="button">PDF</button>
+      <button class="btn primary" id="btnDOCX2" type="button">Word</button>
+    </div>
+  </section>
+</main>
+
+<!-- ============ TEMPLATE POP-UP ============ -->
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="modal-backdrop" id="mBackdrop"></div>
+  <div class="modal-card">
+    <button class="m-close" id="mClose" type="button" aria-label="Close">&times;</button>
+    <button class="m-nav prev" id="mPrev" type="button" aria-label="Previous template">&#8249;</button>
+    <button class="m-nav next" id="mNext" type="button" aria-label="Next template">&#8250;</button>
+    <div class="m-stage" id="mStage"><div class="m-box" id="mBox"><div class="pv-scale" id="mScale"></div></div></div>
+    <div class="m-side">
+      <h2 id="mTitle"></h2>
+      <p class="m-aud" id="mAud"></p>
+      <p class="m-meta" id="mMeta"></p>
+      <label class="chk" id="mPhotoRow"><input type="checkbox" id="mPhoto" checked> Show photo</label>
+      <p class="hint">Preview uses sample text. Your own details replace it.</p>
+      <button class="btn primary big" id="mUse" type="button">Use this template</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<footer class="foot">
+  <div class="cnt"><span class="num" id="cVisits">&ndash;</span><span class="lab">visits</span></div>
+  <div class="foot-mid">
+    <p>&#128274; Nothing you enter is uploaded, stored, or shared. Your CV is made in your own browser. We count visits and downloads only. Uploaded CVs are read on your device only.</p>
+    <p>&copy; 2026 Md Shadman Sakib Showrov. All rights reserved.</p>
+  </div>
+  <div class="cnt"><span class="num" id="cDl">&ndash;</span><span class="lab">CVs downloaded</span></div>
+</footer>
+
+<div id="print-root" aria-hidden="true"></div>
+<div id="measure" aria-hidden="true"></div>
+<style id="pagestyle"></style>
+
+<input type="file" id="fileCV" accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+<input type="file" id="fileDraft" accept=".json,application/json" hidden>
+<input type="file" id="filePhoto" accept="image/*" hidden>
+
+<script src="vendor/docx.iife.js"></script>
+<script src="vendor/jszip.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/templates.js"></script>
+<script src="js/export-docx.js"></script>
+<script src="js/import.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
