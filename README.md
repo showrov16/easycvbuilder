@@ -44,3 +44,15 @@ To show it inside Google Sites: **Insert > Embed > By URL**, paste the link abov
   The counter names are set at the top of `js/app.js` (`NS`).
 * **Importing an old CV** is rule-based, so it works best on simple, text-based CVs. Users review the result.
 * **Fonts and libraries** keep their own licences (SIL OFL for the fonts, MIT/Apache for the libraries).
+
+## Menu, job sites, experiences and contact
+
+- **Your links:** open `js/config.js` and fill in `email`, `facebook` and `linkedin`. An empty value hides that icon.
+- **Experiences (approve or decline):** a visitor writes an experience on the Experiences page. It is emailed to you (through formsubmit.co, a free form-to-email service). The first time, formsubmit sends you one email to confirm your address: click the link in it. Every later email contains a line under "TO APPROVE". To approve, open `data/experiences.txt` on GitHub, click the pencil, paste that line on a new line, and commit. To decline, do nothing. Each experience is one line, so a mistake can only break that one line.
+- **Job sites:** the list is in `js/site-extra.js` (the `JOBS` array). Add or remove lines there.
+
+## Added later
+- **Company search:** `js/companies.js` holds the company list (one line per company) and the small-industry list. Add a line to add a company.
+- **CV check:** `js/cvcheck.js`. Runs in the browser only. Reading a screenshot loads the free text-reading library (Tesseract.js) from the jsDelivr network the first time; the screenshot itself is never uploaded.
+- **Theme:** the very light Bangladesh theme is at the bottom of `css/extra.css`.
+- **Counter:** every time the site is opened or refreshed, visits goes up by 1.

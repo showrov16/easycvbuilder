@@ -48,11 +48,8 @@
   }
   function showCount(id, v) { $(id).textContent = v == null ? '–' : v.toLocaleString('en-US'); }
   async function initCounters() {
-    let seen = false;
-    try { seen = sessionStorage.getItem('ecb_visit') === '1'; } catch (e) { /* ignore */ }
-    const v = await api(seen ? 'get' : 'hit', 'visits');
-    if (!seen) { try { sessionStorage.setItem('ecb_visit', '1'); } catch (e) { /* ignore */ } }
-    showCount('cVisits', v);
+    /* every time the site is opened or refreshed counts as 1 visit */
+    showCount('cVisits', await api('hit', 'visits'));
     showCount('cDl', await api('get', 'downloads'));
   }
   async function countDownload() { const v = await api('hit', 'downloads'); if (v != null) showCount('cDl', v); }
@@ -78,6 +75,7 @@
     state.view = view;
     $('viewHome').hidden = view !== 'home';
     $('viewBuilder').hidden = view !== 'builder';
+    document.querySelectorAll('.xview').forEach(function (v) { v.hidden = true; });
     window.scrollTo(0, 0);
   }
   const FILTERS = [['all', 'All'], ['undergrad', 'Undergrad'], ['bd', 'Bangladesh'], ['us', 'US internship / graduate'], ['abroad', 'Abroad application & study']];
@@ -535,7 +533,6 @@
   $('btnSaveDraft').addEventListener('click', saveDraftFile);
   $('btnChange').addEventListener('click', function () { showHome(true); });
   $('btnBack').addEventListener('click', function () { showHome(true); });
-  $('brand').addEventListener('click', function (e) { e.preventDefault(); if (state.view === 'builder') showHome(true); else window.scrollTo({ top: 0, behavior: 'smooth' }); });
   ['btnPDF', 'btnPDF2'].forEach(function (id) { $(id).addEventListener('click', downloadPDF); });
   ['btnDOCX', 'btnDOCX2'].forEach(function (id) { $(id).addEventListener('click', downloadDOCX); });
   $('selPaper').addEventListener('change', function () { state.doc.paper = this.value; changed(); });
@@ -665,6 +662,6 @@
     initCounters();
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (state.view === 'home') { renderGallery(); } });
   }
-  window.ECB_APP = { state: state, useTemplate: useTemplate, renderPreview: renderPreview, renderForm: renderForm };
+  window.ECB_APP = { state: state, show: show, showHome: showHome, enterBuilder: enterBuilder, useTemplate: useTemplate, renderPreview: renderPreview, renderForm: renderForm };
   init();
 })();

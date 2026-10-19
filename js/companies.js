@@ -1,0 +1,115 @@
+/* Easy CV Builder - companies for the Job sites search.
+   Each line: [name, sector, website, nicknames separated by commas]
+   "Website" opens the company site (find its Careers link there). "Careers" opens a search for its jobs.
+   To add a company, add one line in the right place. Keep the commas and quotes. */
+window.ECB_COMPANIES = {
+  sectors: [
+    ['telecom', 'Telecom & technology brands'],
+    ['fmcg', 'Consumer goods, food & drinks'],
+    ['pharma', 'Pharmaceuticals & health'],
+    ['bank', 'Banks & finance'],
+    ['energy', 'Energy, industry & engineering'],
+    ['local', 'Large local groups'],
+    ['it', 'IT, software & startups'],
+    ['ngo', 'NGO, development & international organisations'],
+    ['gov', 'Government & public sector']
+  ],
+  list: [
+    ['Grameenphone', 'telecom', 'https://www.grameenphone.com', 'GP,Grameen Phone,Telenor'],
+    ['Robi Axiata', 'telecom', 'https://www.robi.com.bd', 'Robi,Axiata'],
+    ['Banglalink', 'telecom', 'https://www.banglalink.net', 'BL,Bangla link,VEON'],
+    ['Teletalk', 'telecom', 'https://www.teletalk.com.bd', ''],
+    ['Huawei', 'telecom', 'https://www.huawei.com', ''],
+    ['Ericsson', 'telecom', 'https://www.ericsson.com', ''],
+    ['Nokia', 'telecom', 'https://www.nokia.com', ''],
+    ['Samsung', 'telecom', 'https://www.samsung.com', 'SRBD'],
+
+    ['Unilever Bangladesh', 'fmcg', 'https://www.unilever.com.bd', 'Unilever,UBL'],
+    ['Nestlé Bangladesh', 'fmcg', 'https://www.nestle.com.bd', 'Nestle'],
+    ['British American Tobacco (BAT)', 'fmcg', 'https://www.bat.com', 'BAT,BATB,British American Tobacco'],
+    ['Japan Tobacco International (JTI)', 'fmcg', 'https://www.jti.com', 'JTI,Japan Tobacco'],
+    ['Procter & Gamble', 'fmcg', 'https://www.pg.com', 'P&G,PG,Procter and Gamble'],
+    ['Coca-Cola', 'fmcg', 'https://www.coca-colacompany.com', 'Coke,Coca Cola'],
+    ['Reckitt', 'fmcg', 'https://www.reckitt.com', 'Reckitt Benckiser,RB'],
+    ['Colgate-Palmolive', 'fmcg', 'https://www.colgatepalmolive.com', 'Colgate'],
+    ['Marico Bangladesh', 'fmcg', 'https://www.marico.com', 'Marico,Parachute'],
+    ['Bata', 'fmcg', 'https://www.bata.com', 'Bata Shoe'],
+    ['Berger Paints Bangladesh', 'fmcg', 'https://www.bergerbd.com', 'Berger'],
+    ['Cargill', 'fmcg', 'https://www.cargill.com', ''],
+    ['Coats', 'fmcg', 'https://www.coats.com', 'Coats Bangladesh'],
+
+    ['GSK', 'pharma', 'https://www.gsk.com', 'GlaxoSmithKline,Glaxo'],
+    ['Sanofi', 'pharma', 'https://www.sanofi.com', ''],
+    ['Pfizer', 'pharma', 'https://www.pfizer.com', ''],
+    ['AstraZeneca', 'pharma', 'https://www.astrazeneca.com', 'AZ'],
+    ['Novo Nordisk', 'pharma', 'https://www.novonordisk.com', 'Novo'],
+    ['Bayer', 'pharma', 'https://www.bayer.com', ''],
+    ['Square Pharmaceuticals', 'pharma', 'https://www.squarepharma.com.bd', 'Square,Square Pharma,Square Group'],
+    ['Beximco Pharmaceuticals', 'pharma', 'https://www.beximcopharma.com', 'Beximco Pharma,BPL'],
+    ['Incepta Pharmaceuticals', 'pharma', 'https://www.inceptapharma.com', 'Incepta'],
+    ['Renata', 'pharma', 'https://www.renata-ltd.com', 'Renata Limited'],
+    ['ACI Limited', 'pharma', 'https://www.aci-bd.com', 'ACI'],
+
+    ['Standard Chartered Bank', 'bank', 'https://www.sc.com/bd', 'SCB,StanChart,Standard Chartered'],
+    ['HSBC Bangladesh', 'bank', 'https://www.hsbc.com.bd', 'HSBC'],
+    ['Citibank', 'bank', 'https://www.citigroup.com', 'Citi,Citibank NA'],
+    ['BRAC Bank', 'bank', 'https://www.bracbank.com', 'BRAC Bank'],
+    ['Eastern Bank (EBL)', 'bank', 'https://www.ebl.com.bd', 'EBL,Eastern Bank'],
+    ['The City Bank', 'bank', 'https://www.thecitybank.com', 'City Bank'],
+    ['Dutch-Bangla Bank', 'bank', 'https://www.dutchbanglabank.com', 'DBBL,Dutch Bangla'],
+    ['Islami Bank Bangladesh', 'bank', 'https://www.islamibankbd.com', 'IBBL,Islami Bank'],
+    ['Prime Bank', 'bank', 'https://www.primebank.com.bd', ''],
+    ['bKash', 'bank', 'https://www.bkash.com', 'bkash'],
+    ['Nagad', 'bank', 'https://www.nagad.com.bd', ''],
+
+    ['Chevron', 'energy', 'https://www.chevron.com', 'Chevron Bangladesh'],
+    ['Siemens', 'energy', 'https://www.siemens.com', ''],
+    ['ABB', 'energy', 'https://www.abb.com', ''],
+    ['Schneider Electric', 'energy', 'https://www.se.com', 'Schneider'],
+    ['Walton', 'energy', 'https://waltonbd.com', 'Walton Hi-Tech,Walton Group'],
+
+    ['Square Group', 'local', 'https://www.squaregroup.com', 'Square'],
+    ['PRAN-RFL Group', 'local', 'https://www.pranrflgroup.com', 'PRAN,RFL,Pran RFL'],
+    ['Beximco Group', 'local', 'https://www.beximco.com', 'Beximco'],
+    ['Bashundhara Group', 'local', 'https://www.bashundharagroup.com', 'Bashundhara'],
+    ['Akij Group', 'local', 'https://www.akij.net', 'Akij'],
+    ['DBL Group', 'local', 'https://www.dbl-group.com', 'Dhaka Bangladesh Limited,DBL'],
+
+    ['Brain Station 23', 'it', 'https://brainstation-23.com', 'BS23,BS 23'],
+    ['Cefalo Bangladesh', 'it', 'https://www.cefalo.com', 'Cefalo'],
+    ['Therap (BD)', 'it', 'https://www.therapbd.com', 'Therap'],
+    ['Enosis Solutions', 'it', 'https://www.enosisbd.com', 'Enosis'],
+    ['Kaz Software', 'it', 'https://www.kaz.com.bd', 'Kaz'],
+    ['BJIT', 'it', 'https://bjitgroup.com', 'BJIT Group'],
+    ['DataSoft Systems', 'it', 'https://www.datasoft-bd.com', 'DataSoft'],
+    ['Pathao', 'it', 'https://pathao.com', ''],
+    ['Chaldal', 'it', 'https://chaldal.com', ''],
+    ['Daraz Bangladesh', 'it', 'https://www.daraz.com.bd', 'Daraz'],
+    ['foodpanda Bangladesh', 'it', 'https://www.foodpanda.com.bd', 'foodpanda,food panda'],
+
+    ['BRAC', 'ngo', 'https://www.brac.net/career', 'BRAC NGO,BRAC careers'],
+    ['icddr,b', 'ngo', 'https://www.icddrb.org', 'ICDDRB'],
+    ['UNDP Bangladesh', 'ngo', 'https://www.undp.org/bangladesh', 'UNDP,United Nations Development Programme'],
+    ['UNICEF Bangladesh', 'ngo', 'https://www.unicef.org/bangladesh', 'UNICEF'],
+    ['World Food Programme', 'ngo', 'https://www.wfp.org', 'WFP'],
+    ['World Bank', 'ngo', 'https://www.worldbank.org', 'WB'],
+    ['Save the Children', 'ngo', 'https://bangladesh.savethechildren.net', 'Save the Children Bangladesh'],
+    ['Plan International', 'ngo', 'https://plan-international.org', 'Plan'],
+    ['WaterAid', 'ngo', 'https://www.wateraid.org', ''],
+    ['Oxfam', 'ngo', 'https://www.oxfam.org', ''],
+
+    ['Bangladesh Public Service Commission (BPSC)', 'gov', 'https://www.bpsc.gov.bd', 'BPSC,PSC,BCS'],
+    ['Bangladesh Bank', 'gov', 'https://www.bb.org.bd', 'BB,Central Bank'],
+    ['Job.com.bd (government jobs)', 'gov', 'https://job.com.bd', 'Govt jobs,Government jobs']
+  ],
+  /* Job sites and ways to find jobs at small and local businesses */
+  small: [
+    ['Shomvob', 'https://shomvob.com', 'Jobs at small shops, factories, delivery and service companies. Good for entry-level and fresh starters.'],
+    ['Bdjobs', 'https://www.bdjobs.com', 'Many small and medium companies post here too. Use the filters for company size and location.'],
+    ['Chakri.com', 'https://www.chakri.com', 'Private and government jobs, popular with fresh graduates.'],
+    ['Job.com.bd', 'https://job.com.bd', 'Government, bank and public-sector job notices.'],
+    ['Facebook job groups and company pages', 'https://www.facebook.com/search/groups/?q=jobs%20bangladesh', 'Many small businesses post vacancies only on Facebook. Search for "jobs" with your city or field. Be careful with scams.'],
+    ['Daily newspaper job pages', 'https://www.google.com/search?q=Bangladesh+newspaper+job+circular', 'Local companies still advertise in newspapers. Search for the latest circular.'],
+    ['Local industry associations', 'https://www.google.com/search?q=Bangladesh+industry+association+career+jobs', 'Industry groups such as garments, pharmaceuticals, leather and IT often share member jobs.']
+  ]
+};

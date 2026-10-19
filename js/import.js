@@ -298,7 +298,7 @@
     return doc;
   }
 
-  async function importFile(file, docIn) {
+  async function readLines(file) {
     const buf = await file.arrayBuffer();
     const name = (file.name || '').toLowerCase();
     let lines;
@@ -306,9 +306,11 @@
     else if (/\.docx$/.test(name)) lines = await docxLines(buf);
     else throw new Error('Please choose a PDF or a Word (.docx) file.');
     if (lines.join('').trim().length < 30) throw new Error('No readable text was found. This looks like a scanned or image-only file. Please upload a text-based PDF or Word file, or type your details in.');
-    return parse(lines, docIn);
+    return lines;
   }
+  async function importFile(file, docIn) { return parse(await readLines(file), docIn); }
 
+  E.readLines = readLines;
   E.importFile = importFile;
   E._importParse = parse;
 })(window);
