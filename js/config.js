@@ -7,5 +7,5 @@ window.ECB_CONFIG = {
   linkedin: 'https://www.linkedin.com/in/showrov1996/',
   // Your email address. It is NOT shown to visitors. It only receives the experiences people send you.
   // Leave it empty and the "Share your experience" form stays switched off.
-  email: ''
+  email: 'shadman.ndc16@gmail.com'
 };
