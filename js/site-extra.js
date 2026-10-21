@@ -142,6 +142,8 @@
   });
 
   /* ---------- experiences ---------- */
+  function pubBase() { return location.origin + location.pathname; }
+  function b64u(s) { const b = new TextEncoder().encode(s); let t = ''; b.forEach(function (c) { t += String.fromCharCode(c); }); return btoa(t).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); }
   let expLoaded = false;
   function parseLines(txt) {
     const out = [];
@@ -180,7 +182,7 @@
       const r = await fetch('https://formsubmit.co/ajax/' + encodeURIComponent(CFG.email), {
         method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({ _subject: 'New experience for Easy CV Builder', _template: 'table', _captcha: 'false', name: name || 'Anonymous', role: role, experience: text,
-          'TO APPROVE - copy this one line into data/experiences.txt': line })
+          '1. PUBLISH IT (click this link)': pubBase() + '#/admin/' + b64u(line), '2. DO NOT PUBLISH (click this link)': pubBase() + '#/admin/no' })
       });
       const j = await r.json().catch(function () { return {}; });
       if (!r.ok || String(j.success) === 'false') throw new Error('send failed');
@@ -193,13 +195,23 @@
   });
 
   /* ---------- menu and routing ---------- */
-  const PAGES = { jobs: 'viewJobs', check: 'viewCheck', experiences: 'viewExp', contact: 'viewContact' };
+  const PAGES = { jobs: 'viewJobs', check: 'viewCheck', scholarships: 'viewSchol', experiences: 'viewExp', admin: 'viewAdmin', contact: 'viewContact' };
   function closeMenu() { document.body.classList.remove('menuopen'); $('navToggle').setAttribute('aria-expanded', 'false'); }
   $('navToggle').addEventListener('click', function () { const o = document.body.classList.toggle('menuopen'); this.setAttribute('aria-expanded', o ? 'true' : 'false'); });
   $('menu').addEventListener('click', function (e) { if (e.target.closest('a')) closeMenu(); });
   document.querySelectorAll('.foot a[href^="#/"]').forEach(function (a) { a.addEventListener('click', closeMenu); });
-  $('brand').addEventListener('click', function (e) {
-    if (A.state.view === 'builder' && !document.body.dataset.page) { e.preventDefault(); A.showHome(true); }
+  /* the logo and every "Create CV" link always lead to the main page (template gallery) */
+  function goHome() {
+    closeMenu();
+    if (document.body.dataset.page || (location.hash && location.hash !== '#/' && location.hash !== '#')) {
+      if (location.hash !== '#/') location.hash = '#/'; else route();
+    } else { A.showHome(!!A.state.doc); }
+    window.scrollTo(0, 0);
+  }
+  document.addEventListener('click', function (e) {
+    const a = e.target.closest && e.target.closest('a[href="#/"]');
+    if (!a) return;
+    e.preventDefault(); goHome();
   });
 
   function route() {
@@ -207,7 +219,7 @@
     const page = h[0] || 'home';
     document.querySelectorAll('.menu [data-nav]').forEach(function (a) { a.classList.toggle('on', a.dataset.nav === page); });
     if (!PAGES[page]) {
-      if (document.body.dataset.page) { delete document.body.dataset.page; if (A.state.view === 'builder' && A.state.doc) A.enterBuilder(); else A.showHome(A.state.changing); }
+      if (document.body.dataset.page) { delete document.body.dataset.page; A.showHome(!!A.state.doc); }
       return;
     }
     document.body.dataset.page = page;
@@ -220,4 +232,73 @@
   window.addEventListener('hashchange', route);
   renderJobMenu();
   route();
+})();
+
+/* home: fan of real template previews in the hero */
+(function () {
+  function build() {
+    var fan = document.getElementById('heroFan'), th = document.querySelectorAll('#gallery .card .thumb');
+    if (!fan || th.length < 3 || fan.offsetParent === null) return;
+    fan.querySelectorAll('.fi').forEach(function (n) { n.remove(); });
+    [0, 2, 1].forEach(function (src, i) {
+      var o = th[src], w = o.offsetWidth, h = o.offsetHeight; if (!w || !o.firstChild || !/scale/.test(o.firstChild.style.transform || '')) { retry(); return; }
+      var k = 190 / w, box = document.createElement('div'); box.className = 'fi f' + (i + 1); box.style.height = (h * k) + 'px';
+      var c = o.cloneNode(true); c.style.cssText = 'width:' + w + 'px;height:' + h + 'px;transform:scale(' + k + ');transform-origin:0 0;position:absolute;left:0;top:0';
+            var wrap = document.createElement('div'); wrap.style.cssText = 'position:relative;width:100%;height:100%'; wrap.appendChild(c); box.appendChild(wrap); fan.appendChild(box);
+      var sc = c.firstChild; if (sc && sc.firstChild) { sc.style.transform = 'none'; var pw = sc.firstChild.offsetWidth || 794; sc.style.width = pw + 'px'; sc.style.transform = 'scale(' + (w / pw) + ')'; }
+    });
+  }
+  var tries = 0; function retry() { if (tries++ < 6) later(); }
+  var t; function later() { clearTimeout(t); t = setTimeout(build, 250); }
+  window.addEventListener('load', later); window.addEventListener('resize', later); window.addEventListener('hashchange', function () { tries = 0; later(); setTimeout(later, 900); });
+  var g = document.getElementById('gallery'); if (g) new MutationObserver(later).observe(g, { childList: true });
+})();
+
+/* admin helper: turn a pasted feedback line into the exact line to publish (nothing is stored) */
+(function () {
+  const $ = function (id) { return document.getElementById(id); };
+  if (!$('admIn')) return;
+  const repo = (window.ECB_CONFIG && window.ECB_CONFIG.repo) || 'showrov16/easycvbuilder';
+  function fromLink() {
+    const h = (location.hash || '').replace(/^#\/?/, '').split('/');
+    if (h[0] !== 'admin' || !h[1]) return;
+    const m = $('admLink'); m.hidden = false;
+    if (h[1] === 'no') { m.className = 'msg bad'; m.textContent = 'Not published. Nothing was changed, so you can close this page.'; return; }
+    try {
+      const b = atob(h[1].replace(/-/g, '+').replace(/_/g, '/')), u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i);
+      const o = JSON.parse(new TextDecoder().decode(u));
+      if (!o || typeof o.text !== 'string') throw 0;
+      cur = o; $('admName').value = o.name || ''; $('admRole').value = o.role || ''; $('admText').value = o.text;
+      m.className = 'msg ok'; m.textContent = 'Feedback loaded from your email. Check it below, then press Publish.'; draw();
+    } catch (e) { m.className = 'msg bad'; m.textContent = 'This link could not be read. Paste the feedback below instead.'; }
+  }
+  $('admGit').href = 'https://github.com/' + repo + '/edit/main/data/experiences.txt';
+  let cur = null;
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function line() { return JSON.stringify({ name: $('admName').value.trim(), role: $('admRole').value.trim(), text: $('admText').value.trim(), date: cur.date || '' }); }
+  function draw() {
+    const ok = cur && $('admText').value.trim();
+    $('admEdit').hidden = !cur; $('admCopy').disabled = !ok; $('admPub').disabled = !ok;
+    if (!cur) { $('admPrev').innerHTML = '<p class="hint">Nothing readable yet. Paste the line that starts with {"name".</p>'; return; }
+    const who = $('admName').value.trim() || 'Anonymous', role = $('admRole').value.trim();
+    $('admPrev').innerHTML = '<figure class="quote"><blockquote>' + esc($('admText').value) + '</blockquote><figcaption><strong>' + esc(who) + '</strong>' + (role ? ' &middot; ' + esc(role) : '') + (cur.date ? ' <span>' + esc(cur.date) + '</span>' : '') + '</figcaption></figure>';
+  }
+  window.addEventListener('hashchange', fromLink); window.addEventListener('load', fromLink); fromLink();
+  $('admIn').addEventListener('input', function () {
+    cur = null; $('admMsg').hidden = true;
+    const m = this.value.match(/\{[^\n]*"text"[^\n]*\}/);
+    if (m) { try { const o = JSON.parse(m[0]); if (o && typeof o.text === 'string') { cur = o; $('admName').value = o.name || ''; $('admRole').value = o.role || ''; $('admText').value = o.text; } } catch (e) { /* not valid */ } }
+    draw();
+  });
+  ['admName', 'admRole', 'admText'].forEach(function (id) { $(id).addEventListener('input', draw); });
+  $('admPub').addEventListener('click', function () {
+    const t = line(), go = function () { window.open($('admGit').href, '_blank', 'noopener'); const m = $('admMsg'); m.hidden = false; m.textContent = 'Copied. On GitHub, click at the end of the last line, press Enter, paste (Ctrl+V), then press Commit changes.'; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(go, function () { window.prompt('Copy this line, then paste it on GitHub:', t); go(); });
+    else { window.prompt('Copy this line, then paste it on GitHub:', t); go(); }
+  });
+  $('admCopy').addEventListener('click', function () {
+    const t = line(), done = function () { const m = $('admMsg'); m.hidden = false; m.textContent = 'Copied. Now open the file on GitHub and paste it as a new last line.'; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, function () { window.prompt('Copy this line:', t); });
+    else window.prompt('Copy this line:', t);
+  });
 })();

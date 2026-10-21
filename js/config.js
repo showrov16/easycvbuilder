@@ -5,7 +5,7 @@ window.ECB_CONFIG = {
   facebook: 'https://www.facebook.com/sshowrov16/',
   x: 'https://x.com/_showrov_07',
   linkedin: 'https://www.linkedin.com/in/showrov1996/',
-  // Your email address. It is NOT shown to visitors. It only receives the experiences people send you.
+  // Your email address. It is not printed on the page, but anyone can find it in the page source. It only receives the experiences people send you.
   // Leave it empty and the "Share your experience" form stays switched off.
   email: 'shadman.ndc16@gmail.com'
 };

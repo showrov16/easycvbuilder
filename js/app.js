@@ -77,6 +77,7 @@
     $('viewBuilder').hidden = view !== 'builder';
     document.querySelectorAll('.xview').forEach(function (v) { v.hidden = true; });
     window.scrollTo(0, 0);
+    if (view === 'home') requestAnimationFrame(scaleThumbs);
   }
   const FILTERS = [['all', 'All'], ['undergrad', 'Undergrad'], ['bd', 'Bangladesh'], ['us', 'US internship / graduate'], ['abroad', 'Abroad application & study']];
   function filtered() { return E.TEMPLATES.filter(function (t) { return state.filter === 'all' || t.groups.indexOf(state.filter) >= 0; }); }

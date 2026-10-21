@@ -230,5 +230,5 @@
   });
   window.addEventListener('hashchange', function () { if (location.hash.indexOf('#/check') === 0) syncMine(); });
   syncMine();
-  window.ECB_CHECK = { analyse: analyse, jobKeywords: jobKeywords };
+  window.ECB_CHECK = { analyse: analyse, jobKeywords: jobKeywords, flattenDoc: flattenDoc, haveMine: haveMine };
 })();
