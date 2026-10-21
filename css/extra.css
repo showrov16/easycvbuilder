@@ -18,7 +18,7 @@
 .hero.small{padding:18px 0 6px}
 .hero.small h1{font-size:34px;margin:0 0 6px}
 .h2{font-size:20px;margin:22px 0 4px}
-.note{font-size:13px;color:var(--muted);margin:26px 0 10px;text-align:center}
+.xview .note{font-size:13px;color:var(--muted);margin:26px 0 10px;text-align:center}
 .jgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:10px}
 .jcard{display:flex;flex-direction:column;gap:4px;padding:14px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);color:var(--ink);text-decoration:none;backdrop-filter:blur(6px);transition:transform .15s,box-shadow .15s}
 .jcard:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(30,41,59,.12)}
@@ -195,7 +195,7 @@ a.btn{text-decoration:none;display:inline-block}
 .mcb ul.gap li{color:#7a4b00}
 .mcb a{font-size:13px;font-weight:600;color:var(--bd-green)}
 .due-line{margin:2px 0;font-size:13px;font-weight:600}.due-line.soon{color:#c0283b}.due-line.closed{color:#777}
-.note.left{text-align:left}
+.xview .note.left{text-align:left}
 @media (max-width:900px){.sc-mrow{grid-template-columns:1fr}.sgrid{grid-template-columns:1fr}.tl,.mc{flex-direction:column;gap:6px}.tld{width:auto;flex-direction:row;gap:8px;justify-content:flex-start;align-items:baseline}.mcs{width:auto;text-align:left;display:flex;gap:8px;align-items:baseline}.menu>a{white-space:nowrap}}
 .sch .calbtn{font:inherit;font-size:.85rem;padding:.45rem .8rem;border-radius:999px;border:1px solid var(--bd-green,#006a4e);background:#fff;color:var(--bd-green,#006a4e);cursor:pointer}
 .stale{color:#b3261e}
