@@ -17,7 +17,7 @@
   function linksHTML(doc, sep, showUrl) {
     const a = linksList(doc).map(function (l) {
       const txt = showUrl ? String(l.url).replace(/^https?:\/\//, '').replace(/\/$/, '') : linkLabel(l);
-      return '<a href="' + esc(E.normalizeUrl(l.url)) + '">' + esc(txt) + '</a>';
+      return '<a href="' + esc(E.normalizeUrl(l.url, l.label)) + '">' + esc(txt) + '</a>';
     });
     return a.join(sep == null ? ' · ' : sep);
   }
@@ -182,7 +182,7 @@
       if (nonEmpty(p.email)) ct.push('<b>Email</b><br>' + esc(p.email));
       if (nonEmpty(p.phone)) ct.push('<b>Phone</b><br>' + esc(p.phone));
       if (nonEmpty(p.loc)) ct.push('<b>Address</b><br>' + esc(p.loc));
-      linksList(doc).forEach(function (l) { ct.push('<b>' + esc(linkLabel(l)) + '</b><br><a href="' + esc(E.normalizeUrl(l.url)) + '">' + esc(String(l.url).replace(/^https?:\/\//, '')) + '</a>'); });
+      linksList(doc).forEach(function (l) { ct.push('<b>' + esc(linkLabel(l)) + '</b><br><a href="' + esc(E.normalizeUrl(l.url, l.label)) + '">' + esc(String(l.url).replace(/^https?:\/\//, '')) + '</a>'); });
       const pr = personalRows(doc);
       const o = { layout: { def: 'stack' }, skills: { def: 'bars' }, listCls: '' };
       const c1 = (pr.length ? '<section class="s"><h2>Additional Information</h2><div class="sb"><p class="txt">' + pr.map(function (r) { return esc(r[0] + ': ' + r[1]); }).join('<br>') + '</p></div></section>' : '') +
@@ -227,7 +227,7 @@
       if (nonEmpty(p.loc)) c.push('<p><b>Address</b>' + esc(p.loc) + '</p>');
       if (nonEmpty(p.phone)) c.push('<p><b>Phone</b>' + esc(p.phone) + '</p>');
       if (nonEmpty(p.email)) c.push('<p><b>Email</b>' + esc(p.email) + '</p>');
-      linksList(doc).forEach(function (l) { c.push('<p><b>' + esc(linkLabel(l)) + '</b><a href="' + esc(E.normalizeUrl(l.url)) + '">' + esc(String(l.url).replace(/^https?:\/\//, '')) + '</a></p>'); });
+      linksList(doc).forEach(function (l) { c.push('<p><b>' + esc(linkLabel(l)) + '</b><a href="' + esc(E.normalizeUrl(l.url, l.label)) + '">' + esc(String(l.url).replace(/^https?:\/\//, '')) + '</a></p>'); });
       personalRows(doc).forEach(function (r) { c.push('<p><b>' + esc(r[0]) + '</b>' + esc(r[1]) + '</p>'); });
       const so = { h: 'h3', skills: { def: 'list' } };
       const mo = { layout: { def: 'rf' } };
@@ -292,7 +292,7 @@
       const side = ['education', 'softskills', 'skills', 'languages'];
       const words = String(p.title || '').trim().split(/\s+/).filter(Boolean);
       const jt = words.length > 1 ? '<div class="jt">' + words.map(function (w) { return '<span>' + esc(w) + '</span>'; }).join('') + '</div>' : '<div class="jt one">' + esc(words[0] || '') + '</div>';
-      const ct = contactParts(doc).concat(linksList(doc).map(function (l) { return '<a href="' + esc(E.normalizeUrl(l.url)) + '">' + esc(linkLabel(l)) + '</a>'; }));
+      const ct = contactParts(doc).concat(linksList(doc).map(function (l) { return '<a href="' + esc(E.normalizeUrl(l.url, l.label)) + '">' + esc(linkLabel(l)) + '</a>'; }));
       const pr = personalRows(doc);
       const so = { layout: { def: 'ed' }, skills: { def: 'bars' }, listCls: 'sl' };
       const mo = { layout: { def: 'bd' }, listCls: 'cert' };
@@ -346,7 +346,7 @@
       const side = ['skills', 'languages', 'softskills'];
       const pr = personalRows(doc);
       if (nonEmpty(p.loc)) pr.push(['Address', p.loc]);
-      const cont = [p.phone, p.email].filter(nonEmpty).map(esc).concat(linksList(doc).map(function (l) { return '<a href="' + esc(E.normalizeUrl(l.url)) + '">' + esc(linkLabel(l)) + '</a>'; }));
+      const cont = [p.phone, p.email].filter(nonEmpty).map(esc).concat(linksList(doc).map(function (l) { return '<a href="' + esc(E.normalizeUrl(l.url, l.label)) + '">' + esc(linkLabel(l)) + '</a>'; }));
       const so = { h: 'h3', skills: { def: 'bars' } };
       const mo = { layout: { def: 'od' }, eduTable: true };
       return '<div class="l">' + photo(doc) +

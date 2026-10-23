@@ -49,21 +49,21 @@
       '<p class="chips2">' + s.lv.map(function (l) { return '<span>' + LVN[l] + '</span>'; }).join('') + (s.fl[0] === 'any' ? '<span>Any field</span>' : s.fl.slice(0, 4).map(function (f) { return '<span>' + esc(FN[f]) + '</span>'; }).join('')) + '</p>' +
       '<p class="cover">' + esc(s.cover) + '</p>' +
       '<div class="due ' + sx.cls + '"><strong>' + esc(sx.label) + '</strong><span>' + esc(s.due.text) + '</span>' +
-      (s.due.v ? '<em>Read from the official site on ' + fmt(D.checked) + '</em>' : '') + '</div>' +
+      (s.due.v ? '<em>' + (s.due.src === 'news' ? 'Reported by a news source on ' + fmt(D.checked) + '. Confirm on the official site' : 'Read from the official site on ' + fmt(D.checked)) + '</em>' : '') + '</div>' +
       (s.official.length ? '<h4>From the official page</h4><ul class="ok">' + s.official.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' : '') +
       (s.usual.length ? '<h4>Usually asked (confirm on the official page)</h4><ul>' + s.usual.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' : '') +
       '<div class="cobtn">' + cal(s) + '<a href="' + esc(s.site) + '" target="_blank" rel="noopener noreferrer">Official site &#8599;</a><a class="pri" href="' + esc(s.dl) + '" target="_blank" rel="noopener noreferrer">Deadlines &amp; apply &#8599;</a></div></article>';
   }
   function timeline(list) {
-    const dated = list.filter(function (s) { return s.due.date; }).sort(function (a, b) { return a.due.date < b.due.date ? -1 : 1; });
+    const dated = list.filter(function (s) { return s.due.date; }).sort(function (a, b) { const ca = dayDiff(a.due.date) < 0 ? 1 : 0, cb = dayDiff(b.due.date) < 0 ? 1 : 0; if (ca !== cb) return ca - cb; return a.due.date < b.due.date ? -1 : 1; });
     const set = list.filter(function (s) { return !s.due.date && s.due.v; });
     const usual = list.filter(function (s) { return !s.due.date && !s.due.v; });
     function row(s, dateHTML) {
       const sx = status(s);
-      return '<li class="tl ' + sx.cls + '"><div class="tld">' + dateHTML + '</div><div class="tlb"><strong>' + esc(s.name) + '</strong> <small>' + esc(s.where) + '</small><p>' + esc(s.due.text) + '</p>' +
+      return '<li class="tl ' + sx.cls + '"><div class="tld">' + dateHTML + '</div><div class="tlb"><strong>' + esc(s.name) + '</strong> <small>' + esc(s.where) + '</small><p>' + esc(s.due.text) + '</p>' + (sx.cls === 'closed' ? '<p><strong>' + esc(sx.label) + '</strong></p>' : '') +
         '<a href="' + esc(s.dl) + '" target="_blank" rel="noopener noreferrer">Open the official page &#8599;</a></div></li>';
     }
-    let h = '<div class="fc"><div class="fb open"><h2 class="h2">Dates read from the official websites</h2><p class="hint">Checked on ' + fmt(D.checked) + '. Dates change every year.</p><ul class="tll">' +
+    let h = '<div class="fc"><div class="fb open"><h2 class="h2">Dates found for each scholarship</h2><p class="hint">Checked on ' + fmt(D.checked) + '. Closed rounds are at the bottom. Dates change every year; confirm on each official site.</p><ul class="tll">' +
       (dated.length ? dated.map(function (s) { const p = s.due.date.split('-'); return row(s, '<b>' + (+p[2]) + '</b><i>' + MON[+p[1] - 1] + ' ' + p[0] + '</i>'); }).join('') : '<li class="hint">None in this filter.</li>') + '</ul></div></div>';
     h += '<div class="fc"><div class="fb open"><h2 class="h2">Date set by your country or by the programme</h2><p class="hint">The official site says to check the page for your country or course.</p><ul class="tll">' +
       (set.length ? set.map(function (s) { return row(s, '<i>Check</i>'); }).join('') : '<li class="hint">None in this filter.</li>') + '</ul></div></div>';

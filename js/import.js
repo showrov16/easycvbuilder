@@ -11,10 +11,18 @@
     const pdfjs = await import('../vendor/pdf.min.mjs');
     pdfjs.GlobalWorkerOptions.workerSrc = new URL('../vendor/pdf.worker.min.mjs', SCRIPT_URL).href;
     const pdf = await pdfjs.getDocument({ data: buf }).promise;
-    const lines = [];
+    const lines = []; const hrefs = [];
     for (let n = 1; n <= pdf.numPages; n++) {
       const page = await pdf.getPage(n);
       const tc = await page.getTextContent();
+      /* real hyperlinks inside the PDF (LaTeX and Word CVs often show only "LinkedIn" as text) */
+      try {
+        (await page.getAnnotations()).forEach(function (a) {
+          if (a.subtype !== 'Link' || !a.url || !a.rect) return;
+          const r = a.rect, txt = tc.items.filter(function (it) { return it.str && it.transform[4] >= r[0] - 3 && it.transform[4] <= r[2] + 1 && it.transform[5] >= r[1] - 4 && it.transform[5] <= r[3] + 2; }).map(function (it) { return it.str; }).join(' ').replace(/\s+/g, ' ').trim();
+          hrefs.push({ url: a.url, text: txt });
+        });
+      } catch (e) { /* links are optional */ }
       const rows = [];
       tc.items.forEach(function (it) {
         if (!it.str || !it.str.trim()) { if (it.str === ' ') { /* spacing item */ } return; }
@@ -35,6 +43,7 @@
       });
       lines.push('');
     }
+    lines.links = hrefs;
     return lines;
   }
   async function docxLines(buf) {
@@ -44,7 +53,19 @@
     if (!f) throw new Error('This file does not look like a Word document.');
     const xml = new DOMParser().parseFromString(await f.async('string'), 'application/xml');
     const W = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main';
-    const lines = [];
+    const lines = []; const hrefs = [];
+    try {
+      const rf = zip.file('word/_rels/document.xml.rels');
+      if (rf) {
+        const rx = new DOMParser().parseFromString(await rf.async('string'), 'application/xml'), map = {};
+        Array.prototype.forEach.call(rx.getElementsByTagName('Relationship'), function (r) { if (/hyperlink$/i.test(r.getAttribute('Type') || '')) map[r.getAttribute('Id')] = r.getAttribute('Target'); });
+        Array.prototype.forEach.call(xml.getElementsByTagNameNS(W, 'hyperlink'), function (h) {
+          const id = h.getAttributeNS('http://schemas.openxmlformats.org/officeDocument/2006/relationships', 'id');
+          if (id && map[id]) hrefs.push({ url: map[id], text: h.textContent.replace(/\s+/g, ' ').trim() });
+        });
+      }
+    } catch (e) { /* links are optional */ }
+    lines.links = hrefs;
     const emit = function (s, listed) {
       s.split('\n').forEach(function (part, j) {
         part = part.replace(/[ ]{2,}/g, ' ').trim();
@@ -299,9 +320,21 @@
     const head = lines.slice(0, 14).join('\n');
     const phm = head.match(PHONE); if (phm) p.phone = phm[0].trim();
     const seen = {};
+    const hrefs = (lines.links || []).filter(function (h) { return h && h.url; });
+    hrefs.forEach(function (h) {
+      let u = String(h.url).trim();
+      if (/^mailto:/i.test(u)) { if (!p.email) p.email = u.replace(/^mailto:/i, '').split('?')[0]; return; }
+      if (!/^https?:\/\//i.test(u) || seen[u.toLowerCase()]) return;
+      seen[u.toLowerCase()] = 1;
+      let lab = labelFor(u);
+      if (lab === 'Website' && h.text && h.text.length < 40 && !/^https?:|^www\./i.test(h.text)) lab = h.text;
+      if (p.links.length < 6) p.links.push({ label: lab, url: u });
+    });
     (all.match(URL_RE) || []).forEach(function (u) {
       u = u.replace(/[.,;]+$/, '');
       if (EMAIL.test(u) || seen[u.toLowerCase()]) return;
+      const bare = u.toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/$/, '');
+      if (hrefs.some(function (h) { return String(h.url).toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').indexOf(bare) === 0; })) return;
       seen[u.toLowerCase()] = 1;
       if (p.links.length < 6) p.links.push({ label: labelFor(u), url: u });
     });

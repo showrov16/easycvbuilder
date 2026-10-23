@@ -97,11 +97,19 @@
   }
   function cloneDoc(d) { return JSON.parse(JSON.stringify(d)); }
 
-  function normalizeUrl(u) {
-    u = (u || '').trim();
+  /* turn what people type into a working link: adds https://, accepts a bare handle when the label says LinkedIn/GitHub/ORCID, removes spaces and trailing dots */
+  function normalizeUrl(u, label) {
+    u = String(u || '').replace(/[\u200b\s]+/g, ' ').trim().replace(/^<|>$/g, '').replace(/[.,;]+$/, '').replace(/\s/g, '');
     if (!u) return '';
     if (/^(mailto:|tel:)/i.test(u)) return u;
-    if (!/^https?:\/\//i.test(u)) u = 'https://' + u;
+    const lb = String(label || '').toLowerCase();
+    if (!/^https?:\/\//i.test(u) && !/\./.test(u.split('/')[0])) {
+      const h = u.replace(/^@/, '').replace(/^\/+/, '');
+      if (/linkedin/.test(lb)) return 'https://www.linkedin.com/' + (/^(in|pub|company)\//i.test(h) ? '' : 'in/') + h;
+      if (/github/.test(lb)) return 'https://github.com/' + h;
+      if (/orcid/.test(lb)) return 'https://orcid.org/' + h;
+    }
+    if (!/^https?:\/\//i.test(u)) u = 'https://' + u.replace(/^\/+/, '');
     return u;
   }
   function validUrl(u) {

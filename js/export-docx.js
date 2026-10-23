@@ -84,7 +84,7 @@
       const ls = E.helpers.linksList(doc), out = [];
       ls.forEach(function (l, i) {
         if (i) out.push(new D.TextRun({ text: sep || '  ·  ', font: FONT, size: SZ - 2, color: color }));
-        out.push(new D.ExternalHyperlink({ link: E.normalizeUrl(l.url), children: [new D.TextRun({ text: E.helpers.linkLabel(l), font: FONT, size: SZ - 2, color: color, underline: {} })] }));
+        out.push(new D.ExternalHyperlink({ link: E.normalizeUrl(l.url, l.label), children: [new D.TextRun({ text: E.helpers.linkLabel(l), font: FONT, size: SZ - 2, color: color, underline: {} })] }));
       });
       return out;
     }
@@ -270,7 +270,7 @@
         if (hasContent(doc.sections.summary)) left.push(para(R(doc.sections.summary.text, { run: { size: 18, color: 'E2E8F0' } }), { before: 60 }));
         const right = [];
         [['Email', p.email], ['Phone', p.phone], ['Address', p.loc]].forEach(function (r) { if (nonEmpty(r[1])) { right.push(para(R(r[0], { run: { bold: true, size: 17, color: '7CC4FF' } }), { after: 0 })); right.push(para(R(r[1], { run: { size: 18, color: 'E2E8F0' } }), { after: 40 })); } });
-        E.helpers.linksList(doc).forEach(function (l) { right.push(para(R(E.helpers.linkLabel(l), { run: { bold: true, size: 17, color: '7CC4FF' } }), { after: 0 })); right.push(new D.Paragraph({ spacing: { after: 40 }, children: [new D.ExternalHyperlink({ link: E.normalizeUrl(l.url), children: [new D.TextRun({ text: String(l.url).replace(/^https?:\/\//, ''), font: FONT, size: 18, color: 'E2E8F0', underline: {} })] })] })); });
+        E.helpers.linksList(doc).forEach(function (l) { right.push(para(R(E.helpers.linkLabel(l), { run: { bold: true, size: 17, color: '7CC4FF' } }), { after: 0 })); right.push(new D.Paragraph({ spacing: { after: 40 }, children: [new D.ExternalHyperlink({ link: E.normalizeUrl(l.url, l.label), children: [new D.TextRun({ text: String(l.url).replace(/^https?:\/\//, ''), font: FONT, size: 18, color: 'E2E8F0', underline: {} })] })] })); });
         const cw = [pr ? 1700 : 0, 0, 3000];
         cw[1] = pg.w - cw[0] - cw[2];
         const rowCells = [];
@@ -301,7 +301,7 @@
         const c = sideText;
         sideKids.push(heading('Contact', sideInner, { light: light, color: light ? WHITE : undefined }));
         [p.loc, p.phone, p.email].filter(nonEmpty).forEach(function (x) { sideKids.push(para(R(x, { run: { color: c } }))); });
-        E.helpers.linksList(doc).forEach(function (l) { sideKids.push(new D.Paragraph({ spacing: { after: 20 }, children: [new D.ExternalHyperlink({ link: E.normalizeUrl(l.url), children: [new D.TextRun({ text: E.helpers.linkLabel(l), font: FONT, size: SZ, color: c, underline: {} })] })] })); });
+        E.helpers.linksList(doc).forEach(function (l) { sideKids.push(new D.Paragraph({ spacing: { after: 20 }, children: [new D.ExternalHyperlink({ link: E.normalizeUrl(l.url, l.label), children: [new D.TextRun({ text: E.helpers.linkLabel(l), font: FONT, size: SZ, color: c, underline: {} })] })] })); });
         if (pers.length) { sideKids.push(heading('Personal Details', sideInner, { light: light, color: light ? WHITE : undefined })); pers.forEach(function (x) { sideKids.push(para(R(x, { run: { color: c } }))); }); }
         mainKids.push(para(R(p.name || 'Your Name', { run: { bold: true, size: 56 } }), { after: 40 }));
         if (nonEmpty(p.title)) mainKids.push(para(R(p.title, { run: { size: 26 } }), { after: 80 }));
