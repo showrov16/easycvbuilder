@@ -116,6 +116,108 @@ uf('Yong Kyu Yoon','yong-kyu-yoon','3-D MEMS, RF and microwave metamaterials, mm
 uf('Alina Zare','alina-zare','Machine learning, pattern recognition, remote sensing, image processing')
   ].join('\n'));
 
+  var PUR = fac('Hadiseh Alaeian | Microelectronics and nanotechnology |\n' +
+'Muhammad Ashraful Alam | Microelectronics and nanotechnology |\n' +
+'Jan P. Allebach | Communications, networking, signal and image processing |\n' +
+'Joerg Appenzeller | Microelectronics and nanotechnology |\n' +
+'Santokh Badesha | Microelectronics and nanotechnology |\n' +
+'Saurabh Bagchi | Communications, networking, signal and image processing |\n' +
+'Mark R. Bell | Communications, networking, signal and image processing |\n' +
+'Peter Bermel | Microelectronics and nanotechnology |\n' +
+'Sunil A. Bhave | Microelectronics and nanotechnology |\n' +
+'Alexandra Boltasseva | Microelectronics and nanotechnology |\n' +
+'Charles A. Bouman | Communications, networking, signal and image processing |\n' +
+'Mireille \"Mimi\" Boutin | Communications, networking, signal and image processing |\n' +
+'Christopher Brinton | Communications, networking, signal and image processing |\n' +
+'Aaron Brovont | Power and energy systems |\n' +
+'Michael A. Capano | Microelectronics and nanotechnology |\n' +
+'Stanley Chan | Communications, networking, signal and image processing |\n' +
+'Yong Chen | Microelectronics and nanotechnology |\n' +
+'Zhihong Chen | Microelectronics and nanotechnology |\n' +
+'Mung Chiang | Communications, networking, signal and image processing |\n' +
+'Mary Comer | Communications, networking, signal and image processing |\n' +
+'James A. Cooper | Microelectronics and nanotechnology |\n' +
+'Meng Cui | Communications, networking, signal and image processing |\n' +
+'Supriyo Datta | Microelectronics and nanotechnology |\n' +
+'Edward J. Delp | Communications, networking, signal and image processing |\n' +
+'Shengwang Du | Communications, networking, signal and image processing |\n' +
+'Daniel S. Elliott | Microelectronics and nanotechnology |\n' +
+'Okan K. Ersoy | Communications, networking, signal and image processing |\n' +
+'Jing Gao | Communications, networking, signal and image processing |\n' +
+'Saul B. Gelfand | Communications, networking, signal and image processing |\n' +
+'Arif Ghafoor | Communications, networking, signal and image processing |\n' +
+'Zahra Ghodsi | Communications, networking, signal and image processing |\n' +
+'Jeffery L. Gray | Microelectronics and nanotechnology |\n' +
+'Qi Guo | Communications, networking, signal and image processing |\n' +
+'Vijay Gupta | Communications, networking, signal and image processing; Power and energy systems |\n' +
+'Sumeet Gupta | Microelectronics and nanotechnology |\n' +
+'Abolfazl Hashemi | Communications, networking, signal and image processing |\n' +
+'Mahdi Hosseini | Microelectronics and nanotechnology |\n' +
+'Jianghai Hu | Communications, networking, signal and image processing |\n' +
+'Y. Charlie Hu | Communications, networking, signal and image processing |\n' +
+'Muhammad Hussain | Microelectronics and nanotechnology |\n' +
+'Nak-seung Patrick Hyun | Communications, networking, signal and image processing |\n' +
+'Zubin Jacob | Microelectronics and nanotechnology |\n' +
+'Leah H. Jamieson | Communications, networking, signal and image processing |\n' +
+'David B. Janes | Microelectronics and nanotechnology |\n' +
+'Vassilis Kekatos | Power and energy systems |\n' +
+'Alexander Kildishev | Power and energy systems |\n' +
+'Kwang Taik Kim | Communications, networking, signal and image processing |\n' +
+'Gerhard Klimeck | Microelectronics and nanotechnology |\n' +
+'Murat Kocaoglu | Communications, networking, signal and image processing |\n' +
+'James V. Krogmeier | Communications, networking, signal and image processing |\n' +
+'Tillmann Kubis | Microelectronics and nanotechnology |\n' +
+'James S. Lehnert | Communications, networking, signal and image processing |\n' +
+'Haitong Li | Microelectronics and nanotechnology |\n' +
+'Xiaojun Lin | Communications, networking, signal and image processing |\n' +
+'David J. Love | Communications, networking, signal and image processing |\n' +
+'Joseph M. Lukens | Communications, networking, signal and image processing |\n' +
+'Mark S. Lundstrom | Microelectronics and nanotechnology |\n' +
+'Joseph Makin | Communications, networking, signal and image processing |\n' +
+'Anuran Makur | Communications, networking, signal and image processing |\n' +
+'Michael Manfra | Microelectronics and nanotechnology |\n' +
+'Jason D. McKinney | Communications, networking, signal and image processing |\n' +
+'Michael R. Melloch | Microelectronics and nanotechnology |\n' +
+'Saeed Mohammadi | Communications, networking, signal and image processing; Microelectronics and nanotechnology |\n' +
+'Evgenii Narimanov | Microelectronics and nanotechnology |\n' +
+'Chee-Mun Ong | Power and energy systems |\n' +
+'Philip E. Paré | Communications, networking, signal and image processing |\n' +
+'Steven D. Pekarek | Power and energy systems |\n' +
+'Dimitrios Peroulis | Microelectronics and nanotechnology |\n' +
+'Minghao Qi | Microelectronics and nanotechnology |\n' +
+'Junjie Qin | Power and energy systems |\n' +
+'Qiang Qiu | Communications, networking, signal and image processing |\n' +
+'Vijay Raghunathan | Communications, networking, signal and image processing |\n' +
+'Sanjay Rao | Communications, networking, signal and image processing |\n' +
+'Amy Reibman | Communications, networking, signal and image processing |\n' +
+'Kaushik Roy | Communications, networking, signal and image processing; Microelectronics and nanotechnology |\n' +
+'Paul Salama | Communications, networking, signal and image processing |\n' +
+'Euzeli Dos Santos | Power and energy systems |\n' +
+'Gesualdo Scutari | Communications, networking, signal and image processing |\n' +
+'Ali Shakouri | Microelectronics and nanotechnology |\n' +
+'Vladimir M. Shalaev | Communications, networking, signal and image processing; Microelectronics and nanotechnology |\n' +
+'Eugene H. Spafford | Communications, networking, signal and image processing |\n' +
+'Lu Su | Communications, networking, signal and image processing |\n' +
+'Scott D. Sudhoff | Power and energy systems |\n' +
+'Shreyas Sundaram | Communications, networking, signal and image processing |\n' +
+'Hong Z. Tan | Communications, networking, signal and image processing |\n' +
+'Takashi Tanaka | Communications, networking, signal and image processing |\n' +
+'Vishrant Tripathi | Communications, networking, signal and image processing |\n' +
+'Pramey Upadhyaya | Microelectronics and nanotechnology |\n' +
+'Chih-Chun Wang | Communications, networking, signal and image processing |\n' +
+'Xiaoqian (Joy) Wang | Communications, networking, signal and image processing |\n' +
+'Haiyan Wang | Microelectronics and nanotechnology |\n' +
+'Oleg Wasynczuk | Power and energy systems |\n' +
+'Kevin J. Webb | Communications, networking, signal and image processing; Microelectronics and nanotechnology |\n' +
+'Dana Weinstein | Microelectronics and nanotechnology |\n' +
+'George R. Wodicka | Communications, networking, signal and image processing |\n' +
+'Patrick Wolfe | Communications, networking, signal and image processing |\n' +
+'Xianfan Xu | Microelectronics and nanotechnology |\n' +
+'Peide \"Peter\" Ye | Microelectronics and nanotechnology |\n' +
+'Stanislaw H. Zak | Communications, networking, signal and image processing |\n' +
+'Fengqing Maggie Zhu | Communications, networking, signal and image processing |\n' +
+'Michael D. Zoltowski | Communications, networking, signal and image processing |');
+
   window.ECB_UNI = {
     topLimit: 3, /* shows groups 1 to 3 only (about the top 50 of each department). A school with pinned:true is always shown. */
         checked: CHECKED,
@@ -192,7 +294,7 @@ uf('Alina Zare','alina-zare','Machine learning, pattern recognition, remote sens
           docs: 'See the ECE graduate program requirements page.',
           funding: 'Funding offers are generally sent by March 1.',
           notes: 'Confirm the April 1 date mentioned on the page with the ECE graduate office.' },
-        faculty: [] }
+        faculty: PUR, facSrc: 'https://engineering.purdue.edu/ECE/People/Faculty/Areas/?area_id=2588', facNote: 'Partial list: only 3 research areas could be read (communications and signal processing, power and energy, microelectronics and nanotechnology). Professors in other areas such as circuits, computing, controls and fields are not listed yet.' }
     ]
   };
 })();

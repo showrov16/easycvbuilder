@@ -276,3 +276,4 @@ a.btn{text-decoration:none;display:inline-block}
 .u-fh2{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}.u-st{font-weight:700}
 .u-fit ul{margin:6px 0;padding-left:18px;font-size:14px}.u-bad{color:#b3283a;font-weight:600;margin:4px 0}
 @media (max-width:900px){.uni-m{grid-template-columns:1fr}}
+.u-warn2{margin:8px 0;padding:8px 12px;border-radius:10px;background:#fff4e0;color:#5a3b00;font-size:14px}

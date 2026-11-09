@@ -129,9 +129,9 @@
         var f = x.f;
         return '<li class="' + (ts.length && !x.sc ? 'dim' : '') + '"><div class="u-fn"><strong>' + esc(f.name) + '</strong>' +
           (x.sc ? '<span class="u-m">match</span>' : '') + '</div><p>' + esc(f.areas) + '</p><div class="u-ln">' +
-          '<a target="_blank" rel="noopener" href="' + esc(f.url) + '">Profile: website and email</a>' +
+          (f.url ? '<a target="_blank" rel="noopener" href="' + esc(f.url) + '">Profile: website and email</a>' : '<a target="_blank" rel="noopener" href="https://www.google.com/search?q=' + encodeURIComponent(f.name + ' ' + s.short + ' electrical computer engineering') + '">Find profile (search)</a>') +
           '<a target="_blank" rel="noopener" href="' + esc(scholar(f, s)) + '">Google Scholar search</a></div></li>';
-      }).join('') + '</ul><p class="u-src">Source: <a target="_blank" rel="noopener" href="' + esc(s.facSrc) + '">department faculty page</a>. Scholar link is a search; check it is the right person.</p>';
+      }).join('') + '</ul>' + (s.facNote ? '<p class="u-warn2">' + esc(s.facNote) + '</p>' : '') + '<p class="u-src">Source: <a target="_blank" rel="noopener" href="' + esc(s.facSrc) + '">department faculty page</a>. Scholar link is a search; check it is the right person.</p>';
     }
     return h + '</article>';
   }
