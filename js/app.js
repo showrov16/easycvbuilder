@@ -37,7 +37,7 @@
 
   /* ---------- counters (Abacus, a free counting service; only an anonymous "add one") ---------- */
   const NS = 'ecb-showrov-2026', BASE = 'https://abacus.jasoncameron.dev';
-  async function api(kind, key) {
+  async function api1(kind, key) {
     try {
       const r = await fetch(BASE + '/' + kind + '/' + NS + '/' + key, { cache: 'no-store' });
       if (r.status === 404) return 0;
@@ -46,7 +46,18 @@
       return typeof j.value === 'number' ? j.value : null;
     } catch (e) { return null; }
   }
-  function showCount(id, v) { $(id).textContent = v == null ? '–' : v.toLocaleString('en-US'); }
+  /* try up to 3 times, remember the last number seen, so a slow or blocked network does not leave a dash */
+  async function api(kind, key) {
+    let v = null;
+    for (let i = 0; i < 3 && v == null; i++) { if (i) await new Promise(function (r) { setTimeout(r, 1200 * i); }); v = await api1(kind, key); }
+    try { if (v != null) localStorage.setItem('ecb_cnt_' + key, String(v)); else { const c = localStorage.getItem('ecb_cnt_' + key); if (c != null && !isNaN(+c)) v = +c; } } catch (e) { /* storage may be blocked */ }
+    return v;
+  }
+  function showCount(id, v) {
+    const el = $(id); el.textContent = v == null ? '–' : v.toLocaleString('en-US');
+    /* hide the counter box when there is no number at all */
+    const box = el.closest('.cnt, .counter, .cbox') || el.parentElement; if (box) box.hidden = (v == null);
+  }
   async function initCounters() {
     /* every time the site is opened or refreshed counts as 1 visit */
     showCount('cVisits', await api('hit', 'visits'));

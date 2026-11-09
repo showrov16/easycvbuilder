@@ -195,7 +195,7 @@
   });
 
   /* ---------- menu and routing ---------- */
-  const PAGES = { jobs: 'viewJobs', check: 'viewCheck', scholarships: 'viewSchol', experiences: 'viewExp', admin: 'viewAdmin', contact: 'viewContact' };
+  const PAGES = { jobs: 'viewJobs', check: 'viewCheck', scholarships: 'viewSchol', universities: 'viewUni', experiences: 'viewExp', admin: 'viewAdmin', contact: 'viewContact' };
   function closeMenu() { document.body.classList.remove('menuopen'); $('navToggle').setAttribute('aria-expanded', 'false'); }
   $('navToggle').addEventListener('click', function () { const o = document.body.classList.toggle('menuopen'); this.setAttribute('aria-expanded', o ? 'true' : 'false'); });
   $('menu').addEventListener('click', function (e) { if (e.target.closest('a')) closeMenu(); });
